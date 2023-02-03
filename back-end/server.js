@@ -2,12 +2,12 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
-import Cards from './dbCards.js'
+import modelUsers from "./usersSchema.js"
 dotenv.config()
 //app config
 const app=express()
 const port=process.env.PORT || 9000
-const connectUrl=`mongodb+srv://admin:${process.env.PASSWORD}@cluster0.yde1grw.mongodb.net/database?retryWrites=true&w=majority`
+const connectUrl=`mongodb+srv://admin:${process.env.PASSWORD}@cluster0.yde1grw.mongodb.net/messengerdb?retryWrites=true&w=majority`
 //MiddleWares
 app.use(express.json())
 app.use(cors())
@@ -15,11 +15,13 @@ app.use(cors())
 mongoose.connect(connectUrl,{
     useNewUrlParser:true
 })
-const db=mongoose.connection
 // Api endpoints
-app.get("/data",async(req,res)=>{
-    const Data=await Cards.find()
-    res.status(200).send(Data)
+app.post("/usersData",async(req,res)=>{
+    modelUsers.create(req.body,(err,data)=>{
+        if(data) res.status(200).send(data)
+        else res.status(404).send(err)
+    })
+    
 })
 //Listeners
 app.listen(port,()=>{console.log(`listening on port : ${port} `)})
