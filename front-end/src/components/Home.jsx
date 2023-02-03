@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import Contacts from './Contacts'
-import Messages from './Messages'
-import {onAuthStateChanged} from "firebase/auth"
-import { auth } from './Firebase'
+import React from 'react'
+
 export default function Home() {
-    const [userInfo,setUserinfo]=useState([])
-    useEffect(()=>{
-      onAuthStateChanged(auth,user=>{
-        if(user){
-            setUserinfo([{displayName:user.displayName,photoURL:user.photoURL,
-                localId:user.reloadUserInfo.localId}])
-        }
-      })
-    },[])
+    const logOut=()=>{
+        localStorage.clear()
+        window.location.reload()
+      }
   return (
-    <div className='text-white flex w-full'>
-        <div className='w-full flex h-full'>
-            {userInfo.length===0 ?
-            <p>loading</p>
-            :
-            <>
-            <Contacts user={userInfo} />
-            <Messages user={userInfo} />
-            </>
-            }
-        </div>
+    <div>
+        <button className='text-white' onClick={logOut}>yo</button>
     </div>
   )
 }
