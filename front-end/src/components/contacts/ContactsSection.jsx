@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { messangerContext } from '../../App'
 import {BiDotsVerticalRounded} from "react-icons/bi"
-import UserMessage from './UserMessage';
+import UserContact from './UserContact';
 export default function MessagesSection() {
     const value=useContext(messangerContext)
     const [menu,setMenu]=useState(false)
@@ -17,7 +17,7 @@ export default function MessagesSection() {
                 console.log(err)
             }
         }
-        handleUsersapi()
+        handleUsersapi();
     },[])
     const handleMenu=()=>{
         setMenu(!menu)
@@ -27,7 +27,7 @@ export default function MessagesSection() {
         window.location.reload()
       }
   return (
-    <div className='w-[400px] h-full border border-transparent border-r-gray-800 '>
+    <div className='w-[400px] h-full border border-transparent border-r-gray-800  '>
         <div className='flex border border-transparent border-b-gray-800 pb-3 justify-between '>
             <div className='flex mt-3'>
                 <img src={require("./../../assets/messangerLogo.png")} alt={value[0].displayName} className="w-[40px] h-[40px]"/>
@@ -59,7 +59,7 @@ export default function MessagesSection() {
                 return(
                     <div key={user._id}>
                     {user.name!==value[0].displayName&&
-                <UserMessage name={user.name} if={user._id} pfp={user.image} />
+                <UserContact name={user.name} if={user._id} pfp={user.image} />
                     }
                     </div>
                 
