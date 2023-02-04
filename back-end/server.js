@@ -33,7 +33,7 @@ app.post("/usersData",(req,res)=>{
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})
-    res.send(users)
+    res.status(200).send(users)
     }
     catch(err){
         res.status(404).send(err)

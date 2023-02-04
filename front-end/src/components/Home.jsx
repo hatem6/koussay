@@ -3,16 +3,11 @@ import { messangerContext } from '../App'
 import axios from "axios"
 import MessagesSection from './messages/MessagesSection'
 export default function Home() {
-  const [value,setValue]=useContext(messangerContext)
+  const value=useContext(messangerContext)
   useEffect(()=>{
-      axios.post("http://localhost:9000/usersData",{name:value.displayName,pfp:value.photoURL,email:value.email}) 
-    },[value])
-    const logOut=()=>{
-        localStorage.clear()
-        window.location.reload()
-      }
-    
-  return (
+      axios.post("http://localhost:9000/usersData",{name:value[0].displayName,pfp:value[0].photoURL,email:value[0].email}) 
+    },[value[0]])
+    return (
     <div>
       <p className='text-white'>{value.displayName}</p>
       <div>
@@ -21,7 +16,6 @@ export default function Home() {
       <div>
         
       </div>
-        <button className='text-white' onClick={logOut}>yo</button>
     </div>
   )
 }
