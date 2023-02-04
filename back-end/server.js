@@ -16,12 +16,29 @@ mongoose.connect(connectUrl,{
     useNewUrlParser:true
 })
 // Api endpoints
-app.post("/usersData",async(req,res)=>{
-    modelUsers.create(req.body,(err,data)=>{
-        if(data) res.status(200).send(data)
-        else res.status(404).send(err)
-    })
-    
+app.post("/usersData",(req,res)=>{
+    modelUsers.countDocuments({email:req.body.email},(err,count)=>{
+        if(count==0){
+            modelUsers.create(req.body,(err,data)=>{
+                if(data) res.status(201).send(data)
+                else res.status(404).send(err)
+            })   
+        }
+        else{
+            res.status(404).send(err)
+        }
+
+    })    
 })
+app.get("/users",async(req,res)=>{
+    try{
+    const users=await modelUsers.find({})
+    res.send(users)
+    }
+    catch(err){
+        res.status(404).send(err)
+    }
+    
+}) 
 //Listeners
 app.listen(port,()=>{console.log(`listening on port : ${port} `)})
