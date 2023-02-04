@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { messangerContext } from '../../App'
 import {BiDotsVerticalRounded} from "react-icons/bi"
+import UserMessage from './UserMessage';
 export default function MessagesSection() {
     const value=useContext(messangerContext)
     const [menu,setMenu]=useState(false)
@@ -26,8 +27,8 @@ export default function MessagesSection() {
         window.location.reload()
       }
   return (
-    <div>
-        <div className='flex w-[400px] justify-between mx-5'>
+    <div className='w-[400px] h-full border border-transparent border-r-gray-800 '>
+        <div className='flex border border-transparent border-b-gray-800 pb-3 justify-between '>
             <div className='flex mt-3'>
                 <img src={require("./../../assets/messangerLogo.png")} alt={value[0].displayName} className="w-[40px] h-[40px]"/>
                 <p className=' ml-2 mt-2 text-white'>{value[0].displayName}</p>
@@ -39,7 +40,7 @@ export default function MessagesSection() {
                 initial="hidden"
                 whileInView={"visible"}
                 viewport={{once:true,amount:0.5}}
-                transition={{delay:0.4,duration:0.7}}
+                transition={{delay:0.4,duration:0.4}}
                 variants={{
                     hidden:{opacity:0,x:30},
                     visible:{opacity:1,x:-5}
@@ -54,7 +55,16 @@ export default function MessagesSection() {
             </div>
         </div>
         <div>
-
+            {users.map(user=>{
+                return(
+                    <div key={user._id}>
+                    {user.name!==value[0].displayName&&
+                <UserMessage name={user.name} if={user._id} pfp={user.image} />
+                    }
+                    </div>
+                
+                )
+            })}
         </div>
     </div>
   )
