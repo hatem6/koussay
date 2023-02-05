@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import {IoIosArrowBack,IoMdSend} from "react-icons/io";
 import {BiDotsVerticalRounded} from "react-icons/bi"
 import {AiFillLike} from "react-icons/ai"
-import { messagesContext } from '../Home';
+import { messagesContext, showMessageSectionContext } from '../Home';
 import { messangerContext } from '../../App';
 import Pusher from "pusher-js"
 import axios from 'axios';
+import { async } from '@firebase/util';
 export default function MessagesSection() {
+    const [showMessageSection,setShowMessageSection]=useContext(showMessageSectionContext)
     // the cuurent user data
     const value=useContext(messangerContext)
     // delete button 
@@ -30,6 +32,21 @@ export default function MessagesSection() {
             channel.unsubscribe()
           }
     },[usersMessages])
+    //gets the previous messages from db
+    useEffect(()=>{
+        const handlemsgs=async()=>{
+            try{
+                const res=await axios.get("http://localhost:9000/msgs")
+            }catch(err){
+                console.log(err)
+            }
+        }
+        handlemsgs()
+    },[])
+    //show or not the messages section
+    const handleMessagesShowSection=()=>{
+        setShowMessageSection(false)
+    }
     // the message value
     const [messageValue,setMessageValue]=useState("")
     // handles the apperance of the delete conversation button
@@ -42,13 +59,13 @@ export default function MessagesSection() {
     }
     //this function sends the message
     const handleSendingMsg=()=>{
-        axios.post("http://localhost:9000/userMessagesData/MessagesSend",{nameCollec1:theTwoMessageUsers[0],nameCollec2:theTwoMessageUsers[1],name:value[0].displayName,message:messageValue})
+        axios.post("http://localhost:9000/userMessagesData/MessagesSend",{nameCollec1:theTwoMessageUsers[0]})
     }
   return (
     <div className="text-white hidden sm:block absolute w-2/3 top-0 bottom-0">
         <div className='w-full border border-transparent border-b-gray-800 pb-[18px] flex justify-between'>
             <div className='flex mt-5'>
-                <IoIosArrowBack color='white' className='cursor-pointer mt-[2px] block ' size={25}/>
+                <IoIosArrowBack onClick={handleMessagesShowSection} color='white' className='cursor-pointer mt-[2px] block ' size={25}/>
                 {<p className='ml-2'>image</p>}
                 {<p className='ml-3'>koussay</p>}
             </div>

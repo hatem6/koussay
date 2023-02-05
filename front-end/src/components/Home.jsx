@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { messangerContext } from '../App'
 import axios from "axios"
 import { createContext } from 'react'
+import messangerLogo from "./../assets/messangerLogo.png"
 import ContactsSection from './contacts/ContactsSection'
 import MessagesSection from './messages/MessagesSection'
 export const messagesContext=createContext()
+export const showMessageSectionContext=createContext()
 export default function Home() {
   const value=useContext(messangerContext)
+  const [showMessageSection,setShowMessageSection]=useState(false)
   const [theTwoMessageUsers,setTheTwoMessageUsers]=useState([])
   const values=value[0]
   const [users,setUsers]=useState([])
@@ -27,12 +30,21 @@ export default function Home() {
     return (
     <div className='flex'>
       <messagesContext.Provider value={[theTwoMessageUsers,setTheTwoMessageUsers]}>
+        <showMessageSectionContext.Provider value={[showMessageSection,setShowMessageSection]}>
       <div className='sm:w-1/3'>
         <ContactsSection user={users} />
       </div>
+      {showMessageSection?
       <div className=''>
-        <MessagesSection/>
+      <MessagesSection/>
+    </div> 
+      : 
+      <div className='flex justify-center items-center'>
+        <img src={messangerLogo} alt="" className='w-[200px] absolute left-[60%] top-[40%] h-[200px]'/>
       </div>
+      }
+      </showMessageSectionContext.Provider>
+      
       </messagesContext.Provider>
     </div>
   )

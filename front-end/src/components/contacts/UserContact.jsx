@@ -1,12 +1,17 @@
+import axios from 'axios'
 import React, { useContext } from 'react'
 import { messangerContext } from '../../App'
-import { messagesContext } from '../Home'
+import { messagesContext, showMessageSectionContext } from '../Home'
 
 export default function UserMessage(props) {
+  const [showMessageSection,setShowMessageSection]=useContext(showMessageSectionContext)
   const [theTwoMessageUsers,setTheTwoMessageUsers]=useContext(messagesContext)
   const value=useContext(messangerContext)
+
   const handleMessageUsersNames=()=>{
+    setShowMessageSection(true)
     setTheTwoMessageUsers([props.name+value[0].displayName,value[0].displayName+props.name])
+    axios.post("http://localhost:9000/makeMessages/Collection",{nameColl:(props.name+value[0].displayName).replace(/\s+/g,"")})
     console.log(theTwoMessageUsers)
   }
   return (

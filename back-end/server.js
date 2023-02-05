@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import modelUsers from "./usersSchema.js"
 import { routes } from "./Routes.js"
+import collecSchema from "./CollecSchema.js"
 dotenv.config()
 //app config
 const app=express()
@@ -31,6 +32,15 @@ app.post("/usersData",(req,res)=>{
 
     })    
 })
+app.post("/makeMessages/Collection",(req,res)=>{
+    const collecModel=mongoose.model(req.body.nameColl,collecSchema,req.body.nameColl)
+    if(!(mongoose.connection.collections[req.body.nameCollec1])){
+        collecModel.create({nameCollec1:"ey"},(err,data)=>{
+            if(data) res.status(201).send(data)
+            else res.status(500).send(err)
+        })
+    }
+    })
 app.use("/userMessagesData",routes);
 app.get("/users",async(req,res)=>{
     try{
