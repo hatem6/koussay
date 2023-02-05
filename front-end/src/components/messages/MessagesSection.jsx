@@ -28,11 +28,12 @@ export default function MessagesSection() {
             <p className='text-white'>koussay</p>
         </div>
         <div className='flex absolute border border-transparent border-t-gray-800 pt-3 w-full justify-center bottom-0 mx-auto'>
-            <div className='flex mb-3  '>
-            <input type={"text"} value={messageValue} onChange={handleMessageValue} className=" w-[400px] h-10 text-black" placeholder={"Message"}/><AiFillLike className={`${messageValue.length>0 ? "hidden" : "block ml-2"}`} color="#2596be" size={30}/><IoMdSend color="#2596be" className={`${messageValue.length>0 ? "block ml-2" : "hidden"}`} size={30}/>
+            <div className='flex mb-3 w-full  '>
+                <div className='bg-[#2c2c2c] ml-5 rounded-2xl w-[90%]'>
+            <input type={"text"} value={messageValue} onChange={handleMessageValue} className=" w-[90%]  bg-transparent outline-none rounded-2xl pl-2 h-10 text-white" placeholder={"Message"}/></div><AiFillLike className={`${messageValue.length>0 ? "hidden" : "block mr-2 mt-[5px] ml-2"}`} color="#2596be" size={30}/><IoMdSend color="#2596be" className={`${messageValue.length>0 ? "block mr-2 mt-[5px] ml-2" : "hidden"}`} size={30}/>
 
             </div>
         </div>
     </div>
   )
-}
+  }

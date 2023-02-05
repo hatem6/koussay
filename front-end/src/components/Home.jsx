@@ -10,10 +10,8 @@ export default function Home() {
   const values=value[0]
   const [users,setUsers]=useState([])
   useEffect(()=>{
-    if(values){
-      console.log(values);
       axios.post("http://localhost:9000/usersData",{name:values.displayName,pfp:values.photoURL,email:values.email}) 
-}},[values])
+},[values])
     useEffect(()=>{
       const handleUsersapi= async ()=>{
           try{
