@@ -7,6 +7,7 @@ import MessagesSection from './messages/MessagesSection'
 export const messagesContext=createContext()
 export default function Home() {
   const value=useContext(messangerContext)
+  const [theTwoMessageUsers,setTheTwoMessageUsers]=useState("")
   const values=value[0]
   const [users,setUsers]=useState([])
   useEffect(()=>{
@@ -25,7 +26,7 @@ export default function Home() {
   },[])
     return (
     <div className='flex'>
-      <messagesContext.Provider value={[]}>
+      <messagesContext.Provider value={[theTwoMessageUsers,setTheTwoMessageUsers]}>
       <div className='sm:w-1/3'>
         <ContactsSection user={users} />
       </div>

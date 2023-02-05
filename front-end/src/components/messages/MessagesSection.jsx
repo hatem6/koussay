@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {IoIosArrowBack,IoMdSend} from "react-icons/io";
 import {BiDotsVerticalRounded} from "react-icons/bi"
 import {AiFillLike} from "react-icons/ai"
+import { messagesContext } from '../Home';
 export default function MessagesSection() {
     const [showDeletebutton,setshowDeleteButton]=useState(false)
+    const [usersMessages,setUsersMessages]=useState([])
+    const [theTwoMessageUsers,setTheTwoMessageUsers]=useContext(messagesContext)
+    useEffect(()=>{
+
+    },[])
     const [messageValue,setMessageValue]=useState("")
     const handleDeleteButton=()=>{
         setshowDeleteButton(!showDeletebutton)
@@ -24,13 +30,13 @@ export default function MessagesSection() {
                 <BiDotsVerticalRounded color='white' onClick={handleDeleteButton} className=' cursor-pointer mt-5' size={25}/>
             </div>
         </div>
-        <div>
+        <div className='overflow-y-scroll absolute top-[66px] w-full bottom-16'>
             <p className='text-white'>koussay</p>
         </div>
         <div className='flex absolute border border-transparent border-t-gray-800 pt-3 w-full justify-center bottom-0 mx-auto'>
             <div className='flex mb-3 w-full  '>
                 <div className='bg-[#2c2c2c] ml-5 rounded-2xl w-[90%]'>
-            <input type={"text"} value={messageValue} onChange={handleMessageValue} className=" w-[90%]  bg-transparent outline-none rounded-2xl pl-2 h-10 text-white" placeholder={"Message"}/></div><AiFillLike className={`${messageValue.length>0 ? "hidden" : "block mr-2 mt-[5px] ml-2"}`} color="#2596be" size={30}/><IoMdSend color="#2596be" className={`${messageValue.length>0 ? "block mr-2 mt-[5px] ml-2" : "hidden"}`} size={30}/>
+            <input type={"text"} value={messageValue} onChange={handleMessageValue} className=" w-[90%]  bg-transparent outline-none rounded-2xl pl-3 h-10 text-white" placeholder={"Message"}/></div><AiFillLike className={`${messageValue.length>0 ? "hidden" : "block mr-2 cursor-pointer mt-[5px] ml-2"}`} color="#2596be" size={30}/><IoMdSend color="#2596be" className={`${messageValue.length>0 ? "block cursor-pointer mr-2 mt-[5px] ml-2" : "hidden"}`} size={30}/>
 
             </div>
         </div>

@@ -7,3 +7,4 @@ const usersSchema=mongoose.Schema({
 })
 const modelUsers=mongoose.model("users",usersSchema,"users")
 export default modelUsers
+
