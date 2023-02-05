@@ -1,24 +1,11 @@
-import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { motion } from 'framer-motion';
 import { messangerContext } from '../../App'
 import {BiDotsVerticalRounded} from "react-icons/bi"
 import UserContact from './UserContact';
-export default function MessagesSection() {
+export default function MessagesSection(props) {
     const value=useContext(messangerContext)
     const [menu,setMenu]=useState(false)
-    const [users,setUsers]=useState([])
-    useEffect(()=>{
-        const handleUsersapi= async ()=>{
-            try{
-                const responseUsers=await axios.get("http://localhost:9000/users")
-                setUsers(responseUsers.data)
-            }catch(err){
-                console.log(err)
-            }
-        }
-        handleUsersapi();
-    },[])
     const handleMenu=()=>{
         setMenu(!menu)
     }
@@ -27,7 +14,7 @@ export default function MessagesSection() {
         window.location.reload()
       }
   return (
-    <div className='w-[400px] h-full border border-transparent border-r-gray-800  '>
+    <div className='w-full overflow-y-scroll sm:w-1/3 border border-transparent absolute top-0 bottom-0 border-r-gray-800  '>
         <div className='flex border border-transparent border-b-gray-800 pb-3 justify-between '>
             <div className='flex mt-3'>
                 <img src={require("./../../assets/messangerLogo.png")} alt={value[0].displayName} className="w-[40px] h-[40px]"/>
@@ -55,7 +42,7 @@ export default function MessagesSection() {
             </div>
         </div>
         <div>
-            {users.map(user=>{
+            {props.user.map(user=>{
                 return(
                     <div key={user._id}>
                     {user.name!==value[0].displayName&&
