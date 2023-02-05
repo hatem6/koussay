@@ -39,6 +39,6 @@ app.get("/users",async(req,res)=>{
         res.status(404).send(err)
     }
     
-}) 
+})
 //Listeners
 app.listen(port,()=>{console.log(`listening on port : ${port} `)})
