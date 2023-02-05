@@ -6,7 +6,7 @@ export default function UserMessage(props) {
   const [theTwoMessageUsers,setTheTwoMessageUsers]=useContext(messagesContext)
   const value=useContext(messangerContext)
   const handleMessageUsersNames=()=>{
-    setTheTwoMessageUsers(props.name+value[0].displayName)
+    setTheTwoMessageUsers([props.name+value[0].displayName,value[0].displayName+props.name])
     console.log(theTwoMessageUsers)
   }
   return (

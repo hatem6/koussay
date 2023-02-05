@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 import modelUsers from "./usersSchema.js"
+import { routes } from "./Routes.js"
 dotenv.config()
 //app config
 const app=express()
@@ -30,6 +31,7 @@ app.post("/usersData",(req,res)=>{
 
     })    
 })
+app.use("/userMessagesData",routes);
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})

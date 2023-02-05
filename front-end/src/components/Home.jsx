@@ -7,7 +7,7 @@ import MessagesSection from './messages/MessagesSection'
 export const messagesContext=createContext()
 export default function Home() {
   const value=useContext(messangerContext)
-  const [theTwoMessageUsers,setTheTwoMessageUsers]=useState("")
+  const [theTwoMessageUsers,setTheTwoMessageUsers]=useState([])
   const values=value[0]
   const [users,setUsers]=useState([])
   useEffect(()=>{

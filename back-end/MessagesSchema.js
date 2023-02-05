@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 
 const messagesSchema=mongoose.Schema({
+    nameCollec1:String,
+    nameCollec2:String,
     name:String,
     message:String
 })
-const MessagesModel=mongoose.model("",messagesSchema,"")
-export default MessagesModel
+export default messagesSchema
