@@ -37,7 +37,6 @@ export default function MessagesSection() {
         const handlemsgs=async()=>{
             try{
                 axios.post("http://localhost:9000/getCollecName",{collec1:theTwoMessageUsers[0],collec2:theTwoMessageUsers[1]})
-                console.log(theTwoMessageUsers[0])
                 const res=await axios.get("http://localhost:9000/msgs")
                 setUsersMessages(res.data)
             }catch(err){
