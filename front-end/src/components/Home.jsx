@@ -9,6 +9,7 @@ export const messagesContext=createContext()
 export const showMessageSectionContext=createContext()
 export default function Home() {
   const value=useContext(messangerContext)
+  console.log(value);
   const [showMessageSection,setShowMessageSection]=useState(false)
   const [theTwoMessageUsers,setTheTwoMessageUsers]=useState([])
   const values=value[0]

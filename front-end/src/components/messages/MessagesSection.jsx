@@ -6,7 +6,6 @@ import { messagesContext, showMessageSectionContext } from '../Home';
 import { messangerContext } from '../../App';
 import Pusher from "pusher-js"
 import axios from 'axios';
-import { async } from '@firebase/util';
 export default function MessagesSection() {
     const [showMessageSection,setShowMessageSection]=useContext(showMessageSectionContext)
     // the cuurent user data

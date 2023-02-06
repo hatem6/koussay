@@ -17,7 +17,7 @@ export default function MessagesSection(props) {
     <div className='w-full overflow-y-scroll sm:w-1/3 border border-transparent absolute top-0 bottom-0 border-r-gray-800  '>
         <div className='flex border border-transparent border-b-gray-800 pb-3 justify-between '>
             <div className='flex mt-3'>
-                <img src={require("./../../assets/messangerLogo.png")} alt={value[0].displayName} className="w-[40px] h-[40px]"/>
+                <img src={value[0].photoURL} alt={value[0].displayName} className="w-[40px] rounded-full h-[40px]"/>
                 <p className=' ml-2 mt-2 text-white'>{value[0].displayName}</p>
             </div>
             <div className='flex mt-3'>
@@ -42,11 +42,11 @@ export default function MessagesSection(props) {
             </div>
         </div>
         <div>
-            {props.user.map(user=>{
+            {props.user.map(use=>{
                 return(
-                    <div key={user._id}>
-                    {user.name!==value[0].displayName&&
-                <UserContact name={user.name} if={user._id} pfp={user.image} />
+                    <div key={use._id}>
+                    {use.name!==value[0].displayName&&
+                <UserContact name={use.name} if={use._id} pfp={use.pfp} />
                     }
                     </div>
                 
