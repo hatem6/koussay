@@ -42,6 +42,10 @@ app.post("/makeMessages/Collection",(req,res)=>{
     }
     })
 app.use("/userMessagesData",routes);
+const collecNameSet="";
+app.post("/getCollecName",(req,res)=>{
+    
+})
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})
