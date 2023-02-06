@@ -1,8 +1,9 @@
 import express from "express"
-import mongoose from "mongoose"
+import mongoose, { mongo } from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 import modelUsers from "./usersSchema.js"
+import MessagesSchema from "./MessagesSchema.js"
 import { routes } from "./Routes.js"
 import collecSchema from "./CollecSchema.js"
 dotenv.config()
@@ -44,6 +45,23 @@ app.post("/makeMessages/Collection",(req,res)=>{
 app.use("/userMessagesData",routes);
 const collecNameSet="";
 app.post("/getCollecName",(req,res)=>{
+    if(mongoose.connection.collections[req.body.collec1]){
+        collecNameSet=req.body.collec1;
+    }
+    else if(mongoose.connection.collections[req.body.collec2]){
+        collecNameSet=req.body.collec2;
+    } 
+})
+console.log(collecNameSet)
+app.get("/msgs",async(req,res)=>{
+    const msgsmodel=mongoose.model(collecNameSet,MessagesSchema,collecNameSet);
+    try{
+        const msgs=msgsmodel.find({})
+    res.status(200).send(msgs)
+    }
+    catch(err){
+        console.log(err);
+    }
     
 })
 app.get("/users",async(req,res)=>{

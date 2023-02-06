@@ -25,6 +25,7 @@ export default function MessagesSection() {
           var channel = pusher.subscribe('messages');
           channel.bind('inserted', function(data) {
             setUsersMessages([...usersMessages,data])
+            
           });
           return ()=>{
             channel.unbind_all();
@@ -35,7 +36,10 @@ export default function MessagesSection() {
     useEffect(()=>{
         const handlemsgs=async()=>{
             try{
+                axios.post("http://localhost:9000/getCollecName",{collec1:theTwoMessageUsers[0],collec2:theTwoMessageUsers[1]})
+                console.log(theTwoMessageUsers[0])
                 const res=await axios.get("http://localhost:9000/msgs")
+                setUsersMessages(res.data)
             }catch(err){
                 console.log(err)
             }
@@ -58,10 +62,10 @@ export default function MessagesSection() {
     }
     //this function sends the message
     const handleSendingMsg=()=>{
+        console.log(messageValue)
         axios.post("http://localhost:9000/userMessagesData/MessagesSend",{nameCollec1:(theTwoMessageUsers[0]).replace(/\s+/g,""),nameCollec2:(theTwoMessageUsers[1]).replace(/\s+/g,""),name:value[0].displayName,message:messageValue})
         setMessageValue("")
     }
-    console.log(usersMessages);
   return (
     <div className="text-white hidden sm:block absolute w-2/3 top-0 bottom-0">
         <div className='w-full border border-transparent border-b-gray-800 pb-[18px] flex justify-between'>
