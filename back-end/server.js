@@ -1,5 +1,5 @@
 import express from "express"
-import mongoose, { mongo } from "mongoose"
+import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cors from "cors"
 import modelUsers from "./usersSchema.js"
@@ -35,35 +35,16 @@ app.post("/usersData",(req,res)=>{
 })
 app.post("/makeMessages/Collection",(req,res)=>{
     const collecModel=mongoose.model(req.body.nameColl,collecSchema,req.body.nameColl)
-    if(!(mongoose.connection.collections[req.body.nameCollec1])){
-        collecModel.create({nameCollec1:"ey"},(err,data)=>{
+        collecModel.create({nameColl:"ey"},(err,data)=>{
             if(data) res.status(201).send(data)
             else res.status(500).send(err)
         })
+        collecModel.findOneAndDelete({nameColl:"ey"},(err,data)=>{
+            if (err) res.status(500).send(err)
+        })
     }
-    })
+    )
 app.use("/userMessagesData",routes);
-const collecNameSet="";
-app.post("/getCollecName",(req,res)=>{
-    if(mongoose.connection.collections[req.body.collec1]){
-        collecNameSet=req.body.collec1;
-    }
-    else if(mongoose.connection.collections[req.body.collec2]){
-        collecNameSet=req.body.collec2;
-    } 
-})
-console.log(collecNameSet)
-app.get("/msgs",async(req,res)=>{
-    const msgsmodel=mongoose.model(collecNameSet,MessagesSchema,collecNameSet);
-    try{
-        const msgs=msgsmodel.find({})
-    res.status(200).send(msgs)
-    }
-    catch(err){
-        console.log(err);
-    }
-    
-})
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})
