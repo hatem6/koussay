@@ -34,16 +34,6 @@ export default function MessagesSection() {
     },[usersMessages])
     //gets the previous messages from db
     useEffect(()=>{
-        const handlemsgs=async()=>{
-            try{
-                axios.post("http://localhost:9000/getCollecName",{collec1:theTwoMessageUsers[0],collec2:theTwoMessageUsers[1]})
-                const res=await axios.get("http://localhost:9000/msgs")
-                setUsersMessages(res.data)
-            }catch(err){
-                console.log(err)
-            }
-        }
-        handlemsgs()
     },[])
     //show or not the messages section
     const handleMessagesShowSection=()=>{
@@ -60,18 +50,16 @@ export default function MessagesSection() {
         setMessageValue(e.target.value)
     }
     //this function sends the message
-    const handleSendingMsg=()=>{
-        console.log(messageValue)
-        axios.post("http://localhost:9000/userMessagesData/MessagesSend",{nameCollec1:(theTwoMessageUsers[0]).replace(/\s+/g,""),nameCollec2:(theTwoMessageUsers[1]).replace(/\s+/g,""),name:value[0].displayName,message:messageValue})
-        setMessageValue("")
+    const handleSendingMsg=(e)=>{
+        e.preventDefault();
     }
   return (
     <div className="text-white hidden sm:block absolute w-2/3 top-0 bottom-0">
-        <div className='w-full border border-transparent border-b-gray-800 pb-[18px] flex justify-between'>
+        <div className='w-full border border-transparent border-b-gray-800 pb-[11px] flex justify-between'>
             <div className='flex mt-5'>
-                <IoIosArrowBack onClick={handleMessagesShowSection} color='white' className='cursor-pointer mt-[2px] block ' size={25}/>
-                {<p className='ml-2'>image</p>}
-                {<p className='ml-3'>koussay</p>}
+                <IoIosArrowBack  color='white' className='cursor-pointer md:hidden block mt-[2px] ' size={25}/>
+                {<img src={theTwoMessageUsers[3]} className="rounded-full ml-7 w-[35px] h-[35px]" alt=""/>}
+                {<p className='ml-1 mt-[6px] text-sm'>{theTwoMessageUsers[2]}</p>}
             </div>
             <div className='flex'>
             <button className={`text-black ${showDeletebutton? "block" : "hidden"} font-[600] text-sm bg-blue-600 rounded-b-lg rounded-l-lg py-1 mt-[18px] px-2`} >Delete Messages</button>
@@ -79,14 +67,17 @@ export default function MessagesSection() {
             </div>
         </div>
         <div className='overflow-y-scroll absolute top-[66px] w-full bottom-16'>
-            <p className='text-white'>koussay</p>
+            
         </div>
         <div className='flex absolute border border-transparent border-t-gray-800 pt-3 w-full justify-center bottom-0 mx-auto'>
-            <div className='flex mb-3 w-full  '>
+                    <form className='w-full' onSubmit={handleSendingMsg} >
+            <div className='flex mb-3 w-full'>
                 <div className='bg-[#2c2c2c] ml-5 rounded-2xl w-[90%]'>
             <input type={"text"} value={messageValue} onChange={handleMessageValue} className=" w-[90%]  bg-transparent outline-none rounded-2xl pl-3 h-10 text-white" placeholder={"Message"}/></div><AiFillLike className={`${messageValue.length>0 ? "hidden" : "block mr-2 cursor-pointer mt-[5px] ml-2"}`} color="#2596be" size={30}/><IoMdSend onClick={handleSendingMsg} color="#2596be" className={`${messageValue.length>0 ? "block cursor-pointer mr-2 mt-[5px] ml-2" : "hidden"}`} size={30}/>
-
+                    
             </div>
+                    </form>
+
         </div>
     </div>
   )

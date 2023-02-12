@@ -9,7 +9,7 @@ export default function UserMessage(props) {
   const value=useContext(messangerContext)
   const handleMessageUsersNames=()=>{
     setShowMessageSection(true)
-    setTheTwoMessageUsers([props.name+value[0].displayName,value[0].displayName+props.name])
+    setTheTwoMessageUsers([props.name+value[0].displayName,value[0].displayName+props.name,props.name,props.pfp])
     axios.post("http://localhost:9000/makeMessages/Collection",{nameColl:(props.name+value[0].displayName).replace(/\s+/g,"")})
   }
   return (
