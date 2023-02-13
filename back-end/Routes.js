@@ -1,24 +1,40 @@
 import express  from "express";
-import mongoose from "mongoose";
-import {collecModel,collectionUsers} from "./server.js"
+import {collecModel} from "./server.js"
 import Pusher from "pusher";
 export const routes=express.Router()
 
-routes.get('/sendMesssage',(req,res)=>{
-  const zero="0"
+routes.post('/sendMesssage',(req,res)=>{
    collecModel.find({},(err,data)=>{
     if(err) res.status(500).send(err)
-    else res.status(200).send(data[0].ArrayMessages[0])
-   })
-    const db = mongoose.connection;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-      const collections = mongoose.modelNames();
-      console.log(collections);
-      const exists = collections.includes('users');
-      console.log(`Collection exists: ${exists}`);
-    
-      db.close();
-    });
+    else {
+      const userArrayLength=data[0].ArrayMessages.length;
+      console.log(userArrayLength)
+      let messagesArrayfound=false
+      for(let i=0;i<userArrayLength;i++){
+        
+        if(data[0].ArrayMessages[i].nameCollec1===req.body.nameCollec1){
+          console.log("hey")
+          collecModel.findByIdAndUpdate({nameCollec1:req.body.nameCollec1},{message:req.body.message},(err,data)=>{
+            if(data) res.status(200).send(data)
+            else console.log(err)
+          })
+          messagesArrayfound=true
+        }
+        else if(data[0].ArrayMessages[i].nameCollec1===req.body.nameCollec2){
+          collecModel.findByIdAndUpdate({nameCollec1:req.body.nameCollec2},{message:req.body.message},(err,data)=>{
+            if(data) res.status(200).send(data)
+            else console.log(err)
+          })
+        }
+        messagesArrayfound=true
+      }
+      if(!messagesArrayfound){
+        collecModel.findByIdAndUpdate({nameCollec1:req.body.nameCollec1},{message:req.body.message},(err,data)=>{
+          if(data) res.status(200).send(data)
+          else console.log(err)
+        })
+      }
+      }
 
+   })
   })
