@@ -7,4 +7,7 @@ const messagesSchema=mongoose.Schema({
     name:String,
     message:String
 })
-export default messagesSchema
+const arraySchema=mongoose.Schema({
+    ArrayMessages:[messagesSchema]
+})
+export default arraySchema

@@ -1,11 +1,10 @@
 import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
+import arraySchema from "./MessagesSchema.js"
 import cors from "cors"
 import modelUsers from "./usersSchema.js"
-import MessagesSchema from "./MessagesSchema.js"
 import { routes } from "./Routes.js"
-import collecSchema from "./CollecSchema.js"
 dotenv.config()
 //app config
 const app=express()
@@ -35,18 +34,12 @@ app.post("/usersData",(req,res)=>{
 
     })    
 })
-const collecModel=mongoose.model("KoussayRouissikoussayrouissi",collecSchema,"KoussayRouissikoussayrouissi")
-app.post("/makeMessages/Collection",(req,res)=>{
-    
-        collecModel.create({nameColl:"ey"},(err,data)=>{
-            if(data) res.status(201).send(data)
-            else res.status(500).send(err)
-        })
-        collecModel.findOneAndDelete({nameColl:"ey"},(err,data)=>{
-            if (err) res.status(500).send(err)
-        })
-    }
-    )
+export const collectionUsers=""
+app.post("/makeMessages/messagesOfUsersArray",(req,res)=>{
+    collectionUsers=req.body.nameColl
+        
+})
+export const collecModel=mongoose.model("Messages",arraySchema,"Messages")
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})
