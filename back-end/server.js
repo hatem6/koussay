@@ -13,12 +13,14 @@ const port=process.env.PORT || 9000
 const connectUrl=`mongodb+srv://admin:${process.env.PASSWORD}@cluster0.yde1grw.mongodb.net/messengerdb?retryWrites=true&w=majority`
 //MiddleWares
 app.use(express.json())
+mongoose.set('strictQuery', true)
 app.use(cors())
 //db conifg 
 mongoose.connect(connectUrl,{
     useNewUrlParser:true
 })
 // Api endpoints
+app.use("/userMessagesData",routes)
 app.post("/usersData",(req,res)=>{
     modelUsers.countDocuments({email:req.body.email},(err,count)=>{
         if(count==0){
@@ -33,8 +35,9 @@ app.post("/usersData",(req,res)=>{
 
     })    
 })
+const collecModel=mongoose.model("KoussayRouissikoussayrouissi",collecSchema,"KoussayRouissikoussayrouissi")
 app.post("/makeMessages/Collection",(req,res)=>{
-    const collecModel=mongoose.model(req.body.nameColl,collecSchema,req.body.nameColl)
+    
         collecModel.create({nameColl:"ey"},(err,data)=>{
             if(data) res.status(201).send(data)
             else res.status(500).send(err)
@@ -44,7 +47,6 @@ app.post("/makeMessages/Collection",(req,res)=>{
         })
     }
     )
-app.use("/userMessagesData",routes);
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})

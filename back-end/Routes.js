@@ -3,7 +3,16 @@ import mongoose from "mongoose";
 import Pusher from "pusher";
 import messagesSchema from "./MessagesSchema.js";
 export const routes=express.Router()
-routes.post("/MessagesSend",(req,res)=>{
-   
-})
+
+    const db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {
+      const collections = mongoose.modelNames();
+      console.log(collections);
+      const exists = collections.includes('users');
+      console.log(`Collection exists: ${exists}`);
+    
+      db.close();
+    });
+
 
