@@ -10,7 +10,7 @@ export default function UserMessage(props) {
   const handleMessageUsersNames=()=>{
     setShowMessageSection(true)
     setTheTwoMessageUsers([props.name+value[0].displayName,value[0].displayName+props.name,props.name,props.pfp])
-    axios.post("http://localhost:9000/makeMessages/Collection",{nameColl:(props.name+value[0].displayName).replace(/\s+/g,"")})
+    axios.post("https://vivacious-clam-pants.cyclic.app/makeMessages/Collection",{nameColl:(props.name+value[0].displayName).replace(/\s+/g,"")})
 }
   return (
     <div key={props.key} onClick={handleMessageUsersNames} className=' active:bg-gray-500  active:bg-opacity-10  w-full h-16'>

@@ -14,12 +14,12 @@ export default function Home() {
   const values=value[0]
   const [users,setUsers]=useState([])
   useEffect(()=>{
-      axios.post("http://localhost:9000/usersData",{name:values.displayName,pfp:values.photoURL,email:values.email}) 
+      axios.post("https://vivacious-clam-pants.cyclic.app/usersData",{name:values.displayName,pfp:values.photoURL,email:values.email}) 
 },[values])
     useEffect(()=>{
       const handleUsersapi= async ()=>{
           try{
-              const responseUsers=await axios.get("http://localhost:9000/users")
+              const responseUsers=await axios.get("https://vivacious-clam-pants.cyclic.app/users")
               setUsers(responseUsers.data)
           }catch(err){
               console.log(err)

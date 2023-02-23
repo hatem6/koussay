@@ -36,7 +36,7 @@ export default function MessagesSection() {
     useEffect(()=>{
         const handleData=async()=>{
             try{
-                const res=await axios.get("http://localhost:9000/MessagesSend/getdata")
+                const res=await axios.get("https://vivacious-clam-pants.cyclic.app/MessagesSend/getdata")
                 setUsersMessages(res.data)
             }
             catch(err){
@@ -63,7 +63,7 @@ export default function MessagesSection() {
     const handleSendingMsg=(e)=>{
         e.preventDefault();
         if(messageValue.length!==0){
-            axios.post("http://localhost:9000/MessagesSend",{Collection1:theTwoMessageUsers[0],Collection2:theTwoMessageUsers[1],name:value[0].displayName,message:messageValue})
+            axios.post("https://vivacious-clam-pants.cyclic.app/MessagesSend",{Collection1:theTwoMessageUsers[0],Collection2:theTwoMessageUsers[1],name:value[0].displayName,message:messageValue})
 
         }
         setMessageValue("")
