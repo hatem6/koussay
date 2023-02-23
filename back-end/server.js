@@ -1,10 +1,10 @@
-import express from "express"
-import mongoose from "mongoose"
-import dotenv from "dotenv"
-import arraySchema from "./MessagesSchema.js"
-import cors from "cors"
-import modelUsers from "./usersSchema.js"
-import { routes } from "./Routes.js"
+const express=require("express")
+const mongoose=require("mongoose")
+const dotenv=require("dotenv")
+const arraySchema=require("./MessagesSchema.js")
+const cors=require("cors")
+const modelUsers=require("./usersSchema.js")
+const { routes }=require("./Routes.js")
 dotenv.config()
 //app config
 const app=express()
@@ -19,7 +19,6 @@ mongoose.connect(connectUrl,{
     useNewUrlParser:true
 })
 // Api endpoints
-app.use("/userMessagesData",routes)
 app.post("/usersData",(req,res)=>{
     modelUsers.countDocuments({email:req.body.email},(err,count)=>{
         if(count==0){
@@ -34,12 +33,7 @@ app.post("/usersData",(req,res)=>{
 
     })    
 })
-export const collectionUsers=""
-app.post("/makeMessages/messagesOfUsersArray",(req,res)=>{
-    collectionUsers=req.body.nameColl
-        
-})
-export const collecModel=mongoose.model("Messages",arraySchema,"Messages")
+
 app.get("/users",async(req,res)=>{
     try{
     const users=await modelUsers.find({})
