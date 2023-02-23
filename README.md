@@ -1,7 +1,7 @@
 # messenger-clone
 messenger clone using firebase  authentication and MERN stack
 
-
+the moment where i seemed to click on nothing actually a pop-up google authentication
 
 
 
