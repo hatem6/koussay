@@ -1,10 +1,10 @@
 const express=require("express")
 const mongoose=require("mongoose")
 const dotenv=require("dotenv")
-const arraySchema=require("./MessagesSchema.js")
+const arraySchema=require("./models/MessagesSchema.js")
 const cors=require("cors")
-const modelUsers=require("./usersSchema.js")
-const { routes }=require("./Routes.js")
+const modelUsers=require("./models/usersSchema.js")
+const routes=require("./routes/Routes.js")
 dotenv.config()
 //app config
 const app=express()
@@ -19,6 +19,7 @@ mongoose.connect(connectUrl,{
     useNewUrlParser:true
 })
 // Api endpoints
+// users data endpoints
 app.post("/usersData",(req,res)=>{
     modelUsers.countDocuments({email:req.body.email},(err,count)=>{
         if(count==0){
@@ -44,5 +45,7 @@ app.get("/users",async(req,res)=>{
     }
     
 })
+//messages endpoints
+app.use("/MessagesSend",routes)
 //Listeners
 app.listen(port,()=>{console.log(`listening on port : ${port} `)})

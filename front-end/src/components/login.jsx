@@ -15,7 +15,7 @@ export default function Login() {
   }
 
   return (
-    <div className='grid mt-[60%] sm:mt-[10%] justify-center'>
+    <div id='login' className='grid mt-[60%] sm:mt-[10%] justify-center'>
       
         <img src={logo} alt="" className="w-[150px] mx-auto mb-24 sm:mb-16 h-[150px]"/>
         <button onClick={handleclick} className='text-white bg-[#00a4ff]  flex rounded-2xl font-bold py-2 px-[80px]'>Login with Google &nbsp;<FcGoogle size={25}/> </button>
